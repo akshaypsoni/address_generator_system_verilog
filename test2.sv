@@ -1,12 +1,16 @@
+// System verilog code for address generator with given condition
+// condition 1 => Consecutive bit in address should not be 1 (1010010...)
+// condition 2 => Number of 1's in the address is equal to 10
+
 class test;
 
-parameter addr_width = 32;				//address width
-parameter ones = 10;					//No. of Ones in address
+parameter addr_width = 32;		//address width
+parameter ones = 10;			//No. of Ones in address
 parameter zeros = addr_width - ones;	//No. of Zeros in address
 
-randc int index1[ones];					//array of indices (index1--->1's)
-randc int index0[zeros];				//array of indices (index0--->0's)
-rand bit [addr_width-1:0]addr;			//address 
+randc int index1[ones];			//array of indices (index1--->1's)
+randc int index0[zeros];		//array of indices (index0--->0's)
+rand bit [addr_width-1:0]addr;		//address 
 
 //constraint for index1 array
 constraint c_index1{
@@ -14,7 +18,7 @@ constraint c_index1{
 	if(ones<zeros)
 	{
 	foreach(index1[i])index1[i]<=addr_width-1;	//max range of index
-	foreach(index1[i])index1[i]>=0;				//min range of index
+	foreach(index1[i])index1[i]>=0;			//min range of index
 
 	//condition for index1 elements (consecutive indices should not present)
 	foreach(index1[i])
@@ -38,7 +42,7 @@ constraint c_index0{
 	if(ones<zeros)
 	{
 	foreach(index0[i])index0[i]<=addr_width-1;	//max range of index
-	foreach(index0[i])index0[i]>=0;				//min range of index
+	foreach(index0[i])index0[i]>=0;			//min range of index
 	
 	//condition for index0 elements other than index1 elements
 	foreach(index0[i])					
